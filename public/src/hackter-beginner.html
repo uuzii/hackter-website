@@ -1,0 +1,140 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="schedules/gdl-schedule.html">
+<link rel="import" href="schedules/leo-schedule.html">
+<link rel="import" href="prizes/gdl-prize.html">
+<link rel="import" href="prizes/leo-prize.html">
+
+<dom-module id="hackter-beginner">
+  <template>
+    <style include="shared-styles">
+      h3 {
+        color: #0B4C5F;
+      }
+    </style>
+    <div class="program-background">
+      <div class="program-img-container">
+        <h1 class="top-space">Principiante</h1> <br>
+        <img class="program-detail-img" src="../../assets/beginner-01.png" alt="principiante"> <br>
+      </div>
+      <div class="container">
+        <h2>Objetivo:</h2>
+        <p>Aprende a construir tu primer sitio Web con HTML, CSS y JavaScript con diseños innovadores, lo más interesante de este programa es que ¡No necesitas ningún conocimiento previo para empezar!</p>
+        <br>
+        <h2>Contenido:</h2>
+        <p>El contenido de nuestros programas se desarrolla en tres enfoques</p>
+        
+        <div class="row">
+          <div class="col s12 m4 l4">
+            <h3>1. Desarrollo</h3>
+            <ul>
+              <li>Administración de archivos</li>
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>Materialize</li>
+              <li>JavaScript</li>
+              <li>jQuery</li>
+            </ul>
+          </div>
+          <div class="col s12 m4 l4">
+            <h3>2. Experiencia de usuario</h3>
+              <ul>
+                <li>Filosofía de producto</li>
+                <li>Design Sprint</li>
+              </ul>
+          </div>
+          <div class="col s12 m4 l4">
+            <h3>3. Trabajo colaborativo y producción</h3>
+            <ul>
+              <li>GitHub</li>
+              <li>Firebase Hosting</li>
+            </ul>
+          </div>
+        </div>
+        
+        
+        <br>
+        <h2>Producto final:</h2>
+        <p>Construirás una landing page (informativa o de contacto) con un diseño optimizado para todo tipo de dispositivos</p>
+
+        <br>
+        <h2>Horarios:</h2>
+        <br>
+        <div>
+          <paper-tabs attr-for-selected="name" selected="{{gdl}}" no-slide align-bottom>
+              <paper-tab name="gdl">Guadalajara</paper-tab>
+              <paper-tab name="leo">León</paper-tab>
+          </paper-tabs>
+          <iron-pages attr-for-selected="name" selected="{{gdl}}" fallback-selection="gdl">
+              <gdl-schedule name="gdl" thereweek theresat
+              rundateweek="19 de febrero" rundatesat="17 de febrero+"></gdl-schedule>
+              <leo-schedule name="leo"></leo-schedule>
+          </iron-pages>
+        </div>
+
+        <br> <br>
+        <h2>Precios:</h2>
+        <br>
+        <div class="row">
+            <div class="col s12 m6 l4">
+                <paper-tabs attr-for-selected="name" selected="{{gdlprize}}" align-bottom id="prize-table-tabs">
+                    <paper-tab name="gdlprize">Guadalajara</paper-tab>
+                    <paper-tab name="leoprize">León</paper-tab>
+                </paper-tabs>
+                <iron-pages attr-for-selected="name" selected="{{gdlprize}}" fallback-selection="gdlprize">
+                    <gdl-prize name="gdlprize" thereweek theresat
+                    semanalprize="$7,000 MXN" sabatinoprize="$6,000 MXN"></gdl-prize>
+                    <leo-prize name="leoprize" thereweek theresat
+                    semanalprize="$7,000 MXN" sabatinoprize="$6,000 MXN"></leo-prize>
+                </iron-pages>
+            </div>
+
+            <div class="col s12 m6 l8" id="help-money">
+                <h3 style="margin-top: 0">¿Necesitas una ayuda financiera?</h3>
+                <p>En Hackter queremos que nadie pierda la oportunidad de aprender con nosotros, si eres
+                    una persona con muchas ganas de sobresalir, aplica para una beca y consigue descuentos
+                    hasta del <span class="blue-text">50%</span>, o bien, invita a más personas y por cada inscripción que
+                    ocasiones, consigue un <span class="blue-text">10%</span> de descuento.
+                </p>
+                    
+                <a href="hackter-becas" tabindex="-1">
+                    <paper-button>Aplica para una beca</paper-button>
+                </a>
+            </div>
+        </div>
+
+        <p>Si aún tienes alguna duda, <a class="blue-text" href="">contáctanos</a></p>
+
+        <br>
+        <div class="button-container">
+          <a href="hackter-inscription" tabindex="-1">
+            <paper-button style="background-color: #003030; color: #00FFFF; border: 1px #00FFFF solid">Inscríbete</paper-button>
+          </a>
+        </div>
+        <br> <br>
+      </div>
+    </div>
+
+
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class HackterPrincipiante extends Polymer.Element {
+      static get is() { return 'hackter-beginner'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(HackterPrincipiante.is, HackterPrincipiante);
+  </script>
+</dom-module>

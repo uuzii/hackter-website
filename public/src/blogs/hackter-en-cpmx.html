@@ -1,0 +1,31 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="gdl-location">
+  <template>
+    <style include="shared-styles">
+
+    </style>
+
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class GdlLocation extends Polymer.Element {
+      static get is() { return 'gdl-location'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(GdlLocation.is, GdlLocation);
+  </script>
+</dom-module>

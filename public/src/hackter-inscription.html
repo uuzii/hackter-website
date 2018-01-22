@@ -1,0 +1,319 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+
+<dom-module id="hackter-inscription">
+  <template>
+    <style include="shared-styles">
+      .container {
+        padding: 3em 0;
+      }
+      
+      div[inscription-background] {
+        background-color: white;
+      }
+
+      .notes {
+        font-size: 14px;
+        margin: 5px 0;
+        color: darkgray;
+      }
+    </style>
+
+    <firebase-query
+      id="query"
+      path="/inscripciones"
+      data="{{inscritos}}"></firebase-query>
+
+    <div inscription-background>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+              <h1>Inscripción</h1>
+              <p>Llena el siguiente formulario para completar tu inscripción</p>
+          </div>
+        </div>
+
+        <form is="iron-form" id="inscriptionf">
+          <div class="row">
+            <div class="col s12 m4 l3">
+              <paper-input id="iname" label="Nombre" required></paper-input>
+            </div>
+            <div class="col s12 m4 l3">
+              <paper-input id="ilname" label="Apellido" required></paper-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m4 l3">
+              <paper-input id="itel" label="Teléfono" required allowed-pattern="[+,0-9]"></paper-input>
+            </div>
+            <div class="col s12 m4 l3">
+              <paper-input id="iemail" label="Email" required></paper-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m8 l6">
+                <paper-dropdown-menu id="iprogram" label="Programa" required>
+                    <paper-listbox slot="dropdown-content" selected="0">
+                      <paper-item>Principiante</paper-item>
+                      <paper-item>Intermedio</paper-item>
+                      <paper-item>Back End Avanzado</paper-item>
+                      <paper-item>Front End Avanzado</paper-item>
+                    </paper-listbox>
+                  </paper-dropdown-menu>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m8 l6">
+              <p>Recuerda que nuestros cursos son presenciales, ¿para qué sede te inscribes?</p>
+              <label id="label1">Sede:</label>
+              <paper-radio-group aria-labelledby="label1" id="isede" on-click="revisarSede" required>
+                <paper-radio-button name="Guadalajara">Guadalajara</paper-radio-button>
+                <paper-radio-button name="Leon">León</paper-radio-button>
+              </paper-radio-group>
+         
+              <paper-dropdown-menu id="modalidadesgdl" label="Horario" style="display: none">
+                <paper-listbox slot="dropdown-content" selected="0">
+                  <paper-item>Entre semana nocturno</paper-item>
+                  <paper-item>Sabatino</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+
+              <paper-dropdown-menu id="modalidadesleo" label="Horario" style="display: none">
+                <paper-listbox slot="dropdown-content" selected="0">
+                  <paper-item>Entre semana matutino</paper-item>
+                  <paper-item>Entre semana nocturno</paper-item>
+                  <paper-item>Sabatino</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m8 l6">
+                <label id="label1">¿Conseguiste algún descuento?:</label>
+                <paper-radio-group aria-labelledby="label1" id="idesc" on-click="revisarDescuento">
+                  <paper-radio-button name="a">Beca</paper-radio-button>
+                  <paper-radio-button name="b">Código</paper-radio-button>
+                  <paper-radio-button name="c">Ninguno</paper-radio-button>
+                </paper-radio-group>
+                <paper-input id="icode" style="display: none" label="Código de promoción"></paper-input>
+                <paper-input id="iscolar" style="display: none" label="Código de beca"></paper-input>
+            </div>
+          </div>
+            
+          <paper-button raised on-tap="delaySubmit">Enviar</paper-button>
+          <paper-spinner id="ispinner" hidden></paper-spinner>
+          <br> <br>
+        </form>
+    
+          <paper-dialog id="required">
+              <h2 class="dialog-header">Campos faltantes</h2>
+              <paper-dialog-scrollable>
+                Parece que te faltó llenar algún campo, verifica tus datos para poder enviar tu mensaje
+              </paper-dialog-scrollable>
+              <div class="buttons">
+                <paper-button class="dialog-button" dialog-dismiss>OK</paper-button>
+              </div>
+            </paper-dialog>
+    
+            <paper-dialog id="success">
+              <h2 class="dialog-header">Gracias</h2>
+              <paper-dialog-scrollable>
+                Hemos recibido tu mensaje, pronto nos pondremos en contacto contigo
+              </paper-dialog-scrollable>
+              <div class="buttons">
+                <a href="hackter-home">
+                  <paper-button class="dialog-button">OK</paper-button>
+                </a>
+              </div>
+            </paper-dialog>
+    
+          
+          <p class="notes">*Si tienes algún referido, aplica tu inscripción y ponte en contacto con nosotros para hacer válidos sus descuentos</p>
+          <p class="notes">*Si recibiste algún código por beca debes ingresar el mismo email con el que aplicaste.</p>
+          <p class="notes">*Si recibiste un código de tu empresa debes utilizar el mismo mail que está en la lista de beneficiarios</p>
+      </div>
+
+      
+      
+    </div>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class HackterInscription extends Polymer.Element {
+      static get is() { return 'hackter-inscription'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          },
+
+          firebase: {
+            type: String
+          },
+
+          ref: {
+            computed: 'setFirebase(firebase)'
+          },
+
+          idate: {
+            computed: 'getCurrentDate()'
+          },
+
+          itime: {
+            computed: 'getCurrentTime()'
+          }
+        };
+      }
+
+      revisarDescuento() {
+        const descuento = this.$.idesc.selected;
+        var beca = this.$.iscolar;
+        var codigo = this.$.icode;
+
+        if(descuento === 'c') {
+          beca.style.display = "none";
+          codigo.style.display = "none";
+          return null;
+        } else if  (descuento === 'a') {
+          beca.style.display = "block";
+          codigo.style.display = "none";
+          return 'isbeca';
+        } else if (descuento === 'b') {
+          beca.style.display = "none";
+          codigo.style.display = "block";
+          return 'iscodigo';
+        }
+      }
+
+      revisarSede() {
+        const sede = this.$.isede.selected;
+        var gdl = this.$.modalidadesgdl;
+        var leon = this.$.modalidadesleo;
+
+        console.log(sede);
+
+        if(sede === 'Guadalajara') {
+          gdl.style.display = 'block';
+          leon.style.display = 'none';
+          return 'jalisco';
+        } else if (sede === 'Leon') {
+          gdl.style.display = 'none';
+          leon.style.display = 'block';
+          return 'guanajuato';
+        }
+      }
+
+      setFirebase(firebase) {
+        return new Firebase(firebase)
+      }
+
+      validate(value, re) {
+        if(re === undefined) {
+          return value !== undefined && value !== '';
+        }
+        return re.test(value);
+      }
+
+      getCurrentDate() {
+        var currentdate = new Date();
+        return currentdate.getDate() + "/" + (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear();
+      }
+
+      getCurrentTime() {
+        var currentdate = new Date();
+        return currentdate.getHours() + ":"  + currentdate.getMinutes();
+      }
+
+      delaySubmit() {
+        var local = this;
+        this.$.ispinner.active = true;
+        this.$.ispinner.hidden = false;
+        this.$.inscriptionf.disabled = false;
+
+        setTimeout(function() {
+          local.send();
+        }, 2000)
+      }
+
+      seleccionaFormularioDescuento() {
+        if(this.revisarDescuento() === null) {
+          return null; 
+        } else if (this.revisarDescuento() === 'isbeca') {
+          return this.$.iscolar.value;
+        } else if (this.revisarDescuento() === 'iscodigo') {
+          return this.$.icode.value;
+        }
+      }
+
+      seleccionaFormularioModalidad() {
+        if(this.revisarSede() === 'jalisco') {
+          return this.$.modalidadesgdl.value; 
+        } else if (this.revisarSede()=== 'guanajuato') {
+          return this.$.modalidadesleo.value;
+        }
+      }
+
+      send(event) {
+        var date = this.idate;
+        var time = this.itime;
+        var name = this.$.iname;
+        var lastname = this.$.ilname;
+        var email = this.$.iemail;
+        var tel = this.$.itel;
+        var program = this.$.iprogram;
+        var sede = this.$.isede;
+        var descuento = this.seleccionaFormularioDescuento();
+        var modalidad = this.seleccionaFormularioModalidad();
+
+        if(!this.validate(name.value) || !this.validate(email.value) || !this.validate(program.value)) {
+          this.$.required.open();
+          this.$.cspinner.active = false;
+          this.$.cspinner.hidden = true;
+          return;
+        }
+
+        if(!email.validate()) {
+          return;
+        }
+
+        this.$.query.ref.push({
+          name: name.value,
+          lastname: lastname.value,
+          email: email.value,
+          tel: tel.value,
+          program: program.value,
+          sede: sede.selected,
+          descuento: descuento,
+          modalidad: modalidad,
+          date: date,
+          time: time
+        });
+
+        this.$.success.open();
+
+        name.value = null;
+        lastname.value = null;
+        email.value = null;
+        tel.value = null;
+        program.value = null;
+        sede.value = null;
+        descuento = null;
+        modalidad = null;
+        date = null;
+        time = null;
+        this.$.cspinner.active = false;
+        this.$.cspinner.hidden = true;
+      }
+
+
+
+    }
+
+    window.customElements.define(HackterInscription.is, HackterInscription);
+  </script>
+</dom-module>

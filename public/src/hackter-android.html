@@ -1,0 +1,143 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="schedules/gdl-schedule.html">
+<link rel="import" href="schedules/leo-schedule.html">
+<link rel="import" href="prizes/gdl-prize.html">
+<link rel="import" href="prizes/leo-prize.html">
+
+<dom-module id="hackter-android">
+  <template>
+    <style include="shared-styles">
+      h3 {
+        color: #003000
+      }
+    </style>
+    <div class="program-background">
+        <div class="program-img-container">
+          <h1 class="top-space">Android</h1> <br>
+          <img class="program-detail-img" src="../../assets/android-01.png" alt="android"> <br>
+        </div>
+        <div class="container">
+          <h2>Objetivo:</h2>
+          <p>Aprende a construir aplicaciones para Android aunque no tengas conocimientos previos 
+            de programación, conviértete en un desarrollador de aplicaciones móviles que empleen 
+            tecnologías como: Mapas de Google, Material Design, Firebase y Consumo de API's para 
+            tener los datos de tu aplicación siempre disponibles.</p>
+          <br>
+          <h2>Contenido:</h2>
+          <p>El contenido de nuestros programas se desarrolla en tres enfoques</p>
+          
+          <div class="row">
+            <div class="col s12 m4 l4">
+              <h3>1. Desarrollo</h3>
+              <ul>
+                <li>Introducción a Java</li>
+                <li>Introducción a Android</li>
+                <li>Diseño de aplicaciones con Material Design</li>
+                <li>Manipulación del dispositivo (GPS, Cámara, Sensores en general)</li>
+                <li>Persistencia de datos con SQLite, Firebase y consumo de API's</li>
+                <li>Shared Preferences</li>
+                <li>Manipulación de imágenes con Piccaso</li>
+                <li>Stetho Realm</li>
+                <li>Desarrollo de Juegos para Android con LibGDX</li>
+              </ul>
+            </div>
+            <div class="col s12 m4 l4">
+              <h3>2. Experiencia de usuario</h3>
+                <ul>
+                  <li>Filosofía de producto</li>
+                  <li>Design Sprint</li>
+                </ul>
+            </div>
+            <div class="col s12 m4 l4">
+              <h3>3. Trabajo colaborativo y publicación</h3>
+              <ul>
+                <li>Git y GitHub</li>
+                <li>Publicación en Play Store</li>
+              </ul>
+            </div>
+          </div>
+          
+          
+          <br>
+          <h2>Producto final:</h2>
+          <p>Creación de aplicaciones para Android con funciones profesionales, 
+            siempre disponibles en todo momento, publicadas en la plataforma de Google Play Store, 
+            así como juegos para Android</p>
+  
+          <br>
+          <h2>Horarios:</h2>
+          <br>
+          <div>
+            <paper-tabs attr-for-selected="name" selected="{{gdl}}" no-slide align-bottom>
+                <paper-tab name="gdl">Guadalajara</paper-tab>
+                <paper-tab name="leo">León</paper-tab>
+            </paper-tabs>
+            <iron-pages attr-for-selected="name" selected="{{gdl}}" fallback-selection="gdl">
+                <gdl-schedule name="gdl" theresat
+                  rundatesat="18 de Noviembre"></gdl-schedule>
+                <leo-schedule name="leo" theresat
+                  rundatesat="25 de Noviembre"></leo-schedule>
+            </iron-pages>
+          </div>
+  
+          <br> <br>
+          <h2>Precios:</h2>
+          <br>
+          <div class="row">
+              <div class="col s12 m6 l4">
+                  <paper-tabs attr-for-selected="name" selected="{{gdlprize}}" align-bottom id="prize-table-tabs">
+                      <paper-tab name="gdlprize">Guadalajara</paper-tab>
+                      <paper-tab name="leoprize">León</paper-tab>
+                  </paper-tabs>
+                  <iron-pages attr-for-selected="name" selected="{{gdlprize}}" fallback-selection="gdlprize">
+                      <gdl-prize name="gdlprize" theresat
+                        sabatinoprize="$8,000 MXN"></gdl-prize>
+                      <leo-prize name="leoprize" theresat
+                        sabatinoprize="$8,000 MXN"></leo-prize>
+                  </iron-pages>
+              </div>
+  
+              <div class="col s12 m6 l8" id="help-money">
+                  <h3 style="margin-top: 0">¿Necesitas una ayuda financiera?</h3>
+                  <p>En Hackter queremos que nadie pierda la oportunidad de aprender con nosotros, si eres
+                      una persona con muchas ganas de sobresalir, aplica para una beca y consigue descuentos
+                      hasta del <span class="blue-text">50%</span>, o bien, invita a más personas y por cada inscripción que
+                      ocasiones, consigue un <span class="blue-text">10%</span> de descuento.
+                  </p>
+                      
+                  <a href="hackter-becas" tabindex="-1">
+                      <paper-button>Aplica para una beca</paper-button>
+                  </a>
+              </div>
+          </div>
+  
+          <p>Si aún tienes alguna duda, <a class="blue-text" href="">contáctanos</a></p>
+  
+          <br>
+          <div class="button-container">
+            <a href="hackter-inscription" tabindex="-1">
+                <paper-button style="background-color: #003000; color: #00FF00; border: 1px #00FF00 solid">Inscríbete</paper-button>
+            </a>
+          </div>
+          <br> <br>
+        </div>
+      </div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class HackterAndroid extends Polymer.Element {
+      static get is() { return 'hackter-android'; }
+      static get properties() {
+        return {
+        };
+      }
+    }
+
+    window.customElements.define(HackterAndroid.is, HackterAndroid);
+  </script>
+</dom-module>

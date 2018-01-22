@@ -1,0 +1,68 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="gdl-prize">
+  <template>
+    <style include="shared-styles">
+        
+    </style>
+    <table class="prize-table">
+        <thead>
+            <tr>
+                <th>Curso</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <template is="dom-if" if="[[thereweek]]">
+              <tr>
+                <td>Entre semana</td>
+                <td>[[semanalprize]]</td>
+              </tr>
+            </template>
+            
+            
+            <template is="dom-if" if="[[theresat]]">
+              <tr>
+                <td>Sabatino</td>
+                <td>[[sabatinoprize]]</td>
+              </tr>
+            </template>
+            
+            <tr>            
+              <td class="table-note" colspan="2"><b>Importante:</b> Esta información fue acutalizada el 8 de Noviembre de 2017</td>
+            </tr>
+        </tbody>
+    </table> <br>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class GdlPrize extends Polymer.Element {
+      static get is() { return 'gdl-prize'; }
+      static get properties() {
+        return {
+          thereweek: {
+            type: Boolean,
+            value: false
+          },
+          theresat: {
+            type: Boolean,
+            value: false
+          },
+          semanalprize: {
+            type: String
+          },
+          sabatinoprize: {
+            type: String
+          }
+        };
+      }
+    }
+
+    window.customElements.define(GdlPrize.is, GdlPrize);
+  </script>
+</dom-module>

@@ -1,0 +1,80 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="cs-scroll">
+  <script>
+/**
+`<cs-scroll target=[[myid]]></cs-scroll>` scrolls the element with id `myid` into view.
+`<cs-scroll>` and the element with `myid` have to be contained in `<cs-scroll>`'s parent element.
+### Example:
+This allows you to implement same page routing in an app's shell element using `<app-route>`:
+
+```
+  <app-location route="{{route}}" use-hash-as-path></app-location>
+  <app-route    route="{{route}}"
+                pattern=":id"
+                data="{{data}}" >
+  </app-route>
+  
+  <cs-scroll target="[[data.id]]"></cs-scroll>
+
+  <a href="#one">One</a></li>
+
+
+``` 
+Clicking the link scrolls to the element with id="one".    
+
+@customElement 
+@polymer
+@demo demo/index.html
+*/
+    class CsScroll extends Polymer.Element {
+      
+      static get is() { return 'cs-scroll'; }
+
+      static get properties(){
+        return {
+/*
+Id of the element that is scrolled into view 
+*/
+          target:{
+            type:String,
+            observer: '_jumpToId'
+          },
+/*
+status used for errorhandling. Set by private method `_jumpToId()`.  
+Values: 
+- `found_target`: target is set to an elements id that was found and scrolled ito view
+- `no_target`:  target is empty
+- `wrong_target`: target is set to an id that was not found
+*/
+          _status: {
+            type:String,
+            value:"unused"
+            
+          }
+        }
+      }
+/*
+scrolls element with id `this.target` into view using its `scrollIntoView()` method.
+*/
+      _jumpToId(){
+
+        if(this.target){
+          let jumpTo = this.parentNode.querySelector('#'+this.target);
+          if (jumpTo){
+            jumpTo.scrollIntoView();
+            this._status = "found_target";
+          }else{
+            console.log("Could not scroll to element with id", this.target, ". It does not exists in this dom tree!");
+            this._status = "wrong_target";
+          }
+        }else{
+          this._status = "no_target";
+        }
+      }  
+    }
+
+    customElements.define(CsScroll.is, CsScroll);  
+  </script>
+</dom-module>
+    

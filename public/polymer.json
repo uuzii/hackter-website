@@ -1,0 +1,41 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/hackter-app.html",
+  "fragments": [
+    "src/hackter-android.html",
+    "src/hackter-badvanzed.html",
+    "src/hackter-beginner.html",
+    "src/hackter-blog.html",
+    "src/hackter-consultancy.html",
+    "src/hackter-contact.html",
+    "src/hackter-fadvanzed.html",
+    "src/hackter-home.html",
+    "src/hackter-inscription.html",
+    "src/hackter-intermediate.html",
+    "src/hackter-login.html",
+    "src/hackter-becas.html"
+  ],
+  "sources": [
+    "src/**/*",
+    "images/**/*",
+    "bower.json"
+  ],
+  "extraDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/*.js"
+  ],
+  "lint": {
+    "rules": ["polymer-2"]
+  },
+  "builds": [
+    {
+      "preset": "es5-bundled"
+    },
+    {
+      "preset": "es6-bundled"
+    },
+    {
+      "preset": "es6-unbundled"
+    }
+  ]
+}

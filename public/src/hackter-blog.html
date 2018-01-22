@@ -1,0 +1,41 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="hackter-blog">
+  <template>
+    <style include="shared-styles">
+      :host {
+        background-color: white;
+      }
+      div {
+        padding-bottom: 3em;
+      }
+    </style>
+
+    <div class="container">
+      <h1 class="top-space">Blog</h1>
+      <p>Estamos trabajando para mostrarte en este espacio todas nuestras actividades y artículos que pueden
+        ser de tu interés, espéralo
+      </p>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class HackterBlog extends Polymer.Element {
+      static get is() { return 'hackter-blog'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(HackterBlog.is, HackterBlog);
+  </script>
+</dom-module>

@@ -1,0 +1,7 @@
+{
+  "name": "hackter-w2",
+  "short_name": "hackter-w2",
+  "description": "Hackter Website V2",
+  "start_url": "/",
+  "display": "standalone"
+}

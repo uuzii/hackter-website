@@ -1,0 +1,80 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+
+<link rel="import" href="admin/admin-contact.html">
+<link rel="import" href="admin/admin-consultancy.html">
+<link rel="import" href="admin/admin-scolarship.html">
+<link rel="import" href="admin/admin-inscription.html">
+
+<dom-module id="hackter-login">
+  <template>
+    <style include="shared-styles">
+
+    </style>
+
+    <firebase-auth id="auth" user="{{user}}" status-known="{{statusKnown}}" provider="password" on-error="handleError">
+
+    <div>
+      <h1>Login</h1>
+      <paper-input label="Usuario" id="email" hidden$="[[user]]"></paper-input>
+      <paper-input label="Contraseña" id="password" hidden$="[[user]]"></paper-input>
+      <paper-button on-tap="login" hidden$="[[user]]">Iniciar sesión</paper-button>
+      
+      <paper-button on-tap="logout" hidden$="[[!user]]">Cerrar sesión</paper-button>
+    </div>
+
+    <template is="dom-if" if="[[user]]">
+      <div>
+        <paper-tabs attr-for-selected="name" selected="{{contacto}}" no-slide>
+              <paper-tab name="contacto">Contacto</paper-tab>
+              <paper-tab name="consultoria">Consultoría</paper-tab>
+              <paper-tab name="becas">Becas</paper-tab>
+              <paper-tab name="inscripcion">Inscritos</paper-tab>
+          </paper-tabs>
+          <iron-pages attr-for-selected="name" selected="{{contacto}}" fallback-selection="contacto">
+              <admin-contact name="contacto"></admin-contact>
+              <admin-consultancy name="consultoria"></admin-consultancy>
+              <admin-scolarship name="becas"></admin-scolarship>
+              <admin-inscription name="inscripcion"></admin-inscription>
+          </iron-pages>
+      </div>
+    </template>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class HackterLogin extends Polymer.Element {
+      static get is() { return 'hackter-login'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          },
+          user: {
+            type: Object
+          },
+          statusKnown: {
+            type: Object
+          }
+        };
+      }
+
+      login() {
+        const mail = this.$.email.value;
+        const pass = this.$.password.value;
+        return this.$.auth.signInWithEmailAndPassword(mail, pass);
+      }
+
+      logout() {
+        return this.$.auth.signOut();
+      }
+
+    }
+
+    window.customElements.define(HackterLogin.is, HackterLogin);
+  </script>
+</dom-module>

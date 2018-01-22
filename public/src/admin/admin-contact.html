@@ -1,0 +1,56 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+
+<dom-module id="admin-contact">
+  <template>
+    <style include="shared-styles">
+
+    </style>
+
+    <firebase-auth user="{{user}}"></firebase-auth>
+    <firebase-query
+      id="query"
+      path="/contacto"
+      data="{{contactos}}"></firebase-query>
+    <div>
+      <h2>Solcitudes contacto</h2>
+      <template is="dom-repeat" items="[[contactos]]" as="contacto">
+        <div style="border: 1px black solid; margin: 1em">
+          <p>
+            <b>[[contacto.name]] [[contacto.lastname]]</b> <br>
+              [[contacto.place]] <br>
+              [[contacto.email]] <br>
+              [[contacto.tel]] <br>
+          </p>
+          <p>
+            [[contacto.message]]
+          </p>
+
+          <p>[[contacto.date]] [[contacto.time]]</p>
+        </div>
+      </template>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class AdminContact extends Polymer.Element {
+      static get is() { return 'admin-contact'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(AdminContact.is, AdminContact);
+  </script>
+</dom-module>

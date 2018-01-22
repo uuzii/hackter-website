@@ -1,0 +1,143 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../shared-styles.html">
+
+<dom-module id="leo-schedule">
+  <template>
+        <style include="shared-styles"></style>
+    <table class="desktop-full-table">
+        <thead>
+            <tr>
+                <th>Modalidad</th>
+                <th>Días</th>
+                <th>Horario</th>
+                <th>Duración</th>
+                <th>Fecha de inicio próximo Camp</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <template is="dom-if" if="[[thereweek]]">
+                <tr>
+                    <td>Entre semana</td>
+                    <td>Lunes a Viernes</td>
+                    <td>19:00 - 22:00</td>
+                    <td>8 semanas</td>
+                    <td>[[rundateweek]]</td>
+                </tr>
+            </template>
+            
+            
+            <template is="dom-if" if="[[theresat]]">
+                <tr>
+                    <td>Sabatino</td>
+                    <td>Sábados</td>
+                    <td>10:00 - 14:00</td>
+                    <td>10 semanas</td>
+                    <td>[[rundatesat]]</td>
+                </tr>
+            </template>
+            
+            <tr>
+                <td class="table-note" colspan="5"><b>Importante:</b> Esta información fue actualizada el 22 de enero de 2018</td>
+            </tr>
+        </tbody>
+    </table>
+
+   <div class="table-in-mobile">
+            
+            <template is="dom-if" if="[[thereweek]]">
+                <table mobile-week-noc>
+                    <thead>
+                        <tr>
+                            <th colspan="2">Entre semana</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Días</td>
+                            <td>Lunes a Viernes</td>
+                        </tr>
+                        <tr>
+                            <td>Horario</td>
+                            <td>19:00 - 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>Duración</td>
+                            <td>8 semanas</td>
+                        </tr>
+                        <tr>
+                            <td>Inicia próximo</td>
+                            <td>[[rundateweek]]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </template>
+            
+        
+            
+            <template is="dom-if" if="[[theresat]]">
+                <table mobile-saturday>
+                    <thead>
+                        <tr>
+                            <th colspan="2">Sabatino</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Días</td>
+                            <td>Sábados</td>
+                        </tr>
+                        <tr>
+                            <td>Horario</td>
+                            <td>10:00 - 14:00</td>
+                        </tr>
+                        <tr>
+                            <td>Duración</td>
+                            <td>10 semanas</td>
+                        </tr>
+                        <tr>
+                            <td>Inicia próximo</td>
+                            <td>[[rundatesat]]</td>
+                        </tr>
+                        <tr>
+                            <td class="table-note" colspan="2"><b>Importante:</b> Esta información fue actualizada el 22 de enero de 2018</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </template>
+            
+   </div>
+    
+    
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class LeoSchedule extends Polymer.Element {
+      static get is() { return 'leo-schedule'; }
+      static get properties() {
+        return {
+            thereweek: {
+              type: Boolean,
+              value: false
+            },
+            theresat: {
+              type: Boolean,
+              value: false
+            },
+            rundateweek: {
+              type: String
+            },
+            rundatesat: {
+              type: String
+            }
+        };
+      }
+    }
+
+    window.customElements.define(LeoSchedule.is, LeoSchedule);
+  </script>
+</dom-module>

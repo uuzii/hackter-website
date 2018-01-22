@@ -1,0 +1,29 @@
+{
+  "name": "cs-scroll",
+  "version": "0.9.4",
+  "description": "scroll to element with id given as target",
+  "main": "cs-scroll.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0"
+  },
+  "devDependencies": {
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
+    "iron-component-page": "^3.0.1"
+  },
+  "demos": {
+    "Demo": "demo/index.html"
+  },
+  "homepage": "https://github.com/csonnhalter/cs-scroll",
+  "_release": "0.9.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.9.4",
+    "commit": "cac622131ee8643f36eb5126b23695bee06f0622"
+  },
+  "_source": "https://github.com/csonnhalter/cs-scroll.git",
+  "_target": "^0.9.4",
+  "_originalSource": "csonnhalter/cs-scroll",
+  "_direct": true
+}

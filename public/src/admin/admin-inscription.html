@@ -1,0 +1,56 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+
+<dom-module id="admin-inscription">
+  <template>
+    <style include="shared-styles">
+
+    </style>
+    <firebase-auth user="{{user}}"></firebase-auth>
+    <firebase-query
+      id="query"
+      path="/inscripciones"
+      data="{{inscritos}}"></firebase-query>
+
+    <div>
+        <h2>Solcitudes inscripción</h2>
+        <div>
+          <template is="dom-repeat" items="[[inscritos]]" as="insc">
+            <div style="border: 1px black solid; margin: 1em">
+              <p>
+                <b[[insc.name]]></b> [[insc.lastname]] <br>
+                [[insc.email]] <br>
+                [[insc.tel]] <br>
+                [[insc.sede]]
+              </p>
+              <p><b>Programa:</b> [[insc.program]]</p>
+              <p><b>Modalidad:</b> [[insc.modalidad]]</p>
+              <p><b>Fecha y hora de Inscripción:</b> [[insc.date]] [[insc.time]]</p>
+            </div>
+          </template>
+        </div>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class AdminInscription extends Polymer.Element {
+      static get is() { return 'admin-inscription'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(AdminInscription.is, AdminInscription);
+  </script>
+</dom-module>

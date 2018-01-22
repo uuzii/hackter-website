@@ -1,0 +1,59 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+
+<dom-module id="admin-scolarship">
+  <template>
+    <style include="shared-styles">
+
+    </style>
+
+    <firebase-auth user="{{user}}"></firebase-auth>
+    <firebase-query
+      id="query"
+      path="/becas"
+      data="{{becarios}}"></firebase-query>
+
+    <div>
+        <h2>Solcitudes beca</h2>
+        <template is="dom-repeat" items="[[becarios]]" as="beca">
+          <div style="border: 1px black solid; margin: 1em">
+            <p>
+              <b>[[beca.name]] [[beca.lastname]]</b> <br>
+              [[beca.place]] <br>
+              [[beca.email]] <br>
+              [[beca.tel]] <br>
+            </p>
+            <p><b>Programa:</b> [[beca.program]]</p>
+            <p><b>Logros:</b> [[beca.goals]]</p>
+            <p><b>¿Por qué quiero entrar a Hackter?:</b> [[beca.reason]]</p>
+            <p><b>¿En qué aplicaré los conocimientos?</b> [[beca.apply]]</p>
+            <p>
+              [[beca.date]] [[beca.time]]
+            </p>
+          </div>
+        </template>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class AdminScolarship extends Polymer.Element {
+      static get is() { return 'admin-scolarship'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(AdminScolarship.is, AdminScolarship);
+  </script>
+</dom-module>

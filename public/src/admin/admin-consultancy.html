@@ -1,0 +1,58 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+
+<dom-module id="admin-consultancy">
+  <template>
+    <style include="shared-styles">
+
+    </style>
+
+    <firebase-auth user="{{user}}"></firebase-auth>
+    <firebase-query
+      id="query"
+      path="/consultoria"
+      data="{{consultores}}"></firebase-query>
+
+    <div>
+        <h2>Solcitudes consultoría</h2>
+        <template is="dom-repeat" items="[[consultores]]" as="cons">
+          <div style="border: 1px black solid; margin: 1em">
+            <p>
+              <b>[[cons.name]] [[cons.lastname]]</b> <br>
+                [[cons.emp]] <br>
+                [[cons.place]] <br>
+                [[cons.email]] <br>
+                3312002105 <br>
+              </p>
+              <p>
+                [[cons.message]]
+              </p>
+
+              <p>[[cons.date]] [[cons.time]]</p>
+            </div>
+        </template>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class AdminConsultancy extends Polymer.Element {
+      static get is() { return 'admin-consultancy'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(AdminConsultancy.is, AdminConsultancy);
+  </script>
+</dom-module>

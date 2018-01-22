@@ -1,0 +1,407 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<link rel="import" href="schedules/gdl-schedule.html">
+<link rel="import" href="schedules/leo-schedule.html">
+
+<link rel="import" href="locations/gdl-location.html">
+<link rel="import" href="locations/leo-location.html">
+
+<link rel="import" href="prizes/gdl-prize.html">
+<link rel="import" href="prizes/leo-prize.html">
+
+<dom-module id="hackter-home">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        background-color: white;
+      }
+
+      div[title-background] {
+          background-image: url('../../assets/kevin.jpg');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+      }
+
+      div[programs-background] {
+          background-color: white;
+          color: dimgray;
+      }
+
+      div.program-container {
+          padding: 2em 0;
+      }
+
+      div.program-background {
+          background-color: white;
+          width: 210px;
+          text-align: center;
+          border-radius: 105px;
+          box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      }
+
+      div.program-background > img {
+          width: 200px;
+          vertical-align: middle;
+      }
+
+      @media screen and (max-width: 600px) {
+        div.program-background {
+          width: 210px;
+          border-radius: 105px;
+      }
+
+        div.program-background > img {
+            width: 200px;
+        }
+
+        div.program-container {
+            text-align: -webkit-center;
+        }
+      }
+
+      div[backend] > div {
+          padding-right: 1em;
+      }
+
+      div[fronted] > div {
+          padding-left: 1em;
+      }
+
+      @media screen and (max-width: 600px) {
+        div[backend] > div {
+          padding-right: 0;
+        }
+
+        div[fronted] > div {
+            padding-left: 0;
+        }
+      }
+
+      div[start-background] {
+            background-color: #515058;
+            padding: 2em 0;
+            color: darkgrey;
+      }
+
+      div[schedule-background] {
+          background-color: white;
+      }
+
+      div[product-background] {
+          min-height: 45vh;
+          background-image: url('../../assets/main.jpg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          color: white;
+      }
+
+
+      div[enterprise-background] {
+          color: white;
+          background-image: url('../../assets/class.jpg');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+          min-height: 50vh;
+      }
+
+      #help-section-notes {
+          margin-top: 1.8em;
+          padding-bottom: 1em;
+      }
+      
+      div#help-section-notes > p {
+          font-size: 14px;
+          margin: 5px 0;
+          color: darkgray;
+      }
+
+      div[location-backgorund] {
+          padding-bottom: 2em;
+      } 
+
+      div[inscription-background] {
+          color: white;
+          min-height: 40vh;
+          background-image: url('../../assets/graduate.jpg');
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          padding-bottom: 2em;
+      }
+
+      paper-button {
+          margin-top: 10px;
+      }
+    </style>
+    
+    <div title-background class="full-size-page">
+        <div main-text class="container white">
+            <h1 class="top-space-ext">Aprende a programar desde cero en Hackter</h1>
+            <p>Hackter es una escuela en la que aprenderás a programar y a crear productos
+                de software innovadores </p> <br>
+        </div>
+    </div>
+
+    <div programs-background>
+        <div class="container row">
+            <div class="col s12 m6 l8">
+                <h2 class="top-space" style="color:black;">Programas</h2>
+                <p>Si tu interés es iniciar una carrera como desarrollador o  simplemente introducirte al mundo
+                    de la tecnología, nuestros programas son ideales para ti, conócelos:
+                </p>
+            </div>
+        </div>
+        <div beginner class="row container program-container">
+            <div class="col s12 m6 l3">
+                <div class="program-background">
+                    <img src="../../assets/beginner-01.png" alt="beginner">
+                </div>
+            </div>
+            <div class="col s12 m6 l9">
+                <h3 style="color: #003030">Principiante</h3>
+                <p>Aprende a construir tu primer sitio Web con HTML, CSS y 
+                   JavaScript con diseños innovadores, lo más interesante de este programa es que
+                   ¡No necesitas ningún conocimiento previo para empezar!</p>
+                <a href="hackter-beginner" tabindex="-1">
+                    <paper-button style="background-color: #003030; color: #00FFFF; border: 1px #00FFFF solid">Ver detalles</paper-button>
+                </a>
+            </div>
+        </div>
+
+        <div class="container divider"></div>
+
+        <div intermediate class="row container program-container">
+            <div class="col s12 m6 l3">
+                <div class="program-background">
+                    <img src="../../assets/intermediate-01.png" alt="intermediate">
+                </div>
+            </div>
+            <div class="col s12 m6 l9">
+                <h3 style="color: #000031">Intermedio</h3>
+                <p>Desarrolla tu lógica, aprende los fundamentos 
+                   de la programación orientada a objetos, consume bases de datos de terceros
+                   y crea aplicaciones web funcionales</p>
+                <a href="hackter-intermediate" tabindex="-1">
+                    <paper-button>Ver detalles</paper-button>
+                </a>
+            </div>
+        </div>
+
+        <div class="container divider"></div>
+
+        <div advanced class="row container">
+            <div backend class="col s12 l6">
+                <div class="program-container">
+                    <div>
+                        <div class="program-background">
+                            <img src="../../assets/backend-01.png" alt="">
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #390031">Back End Avanzado</h3>
+                        <p>Desarrolla tus propias bases de datos con las tecnologías
+                            más modernas, especialízate en desarrollar funciones
+                            complejas y seguridad para tus sitios</p>
+                        <a href="hackter-badvanzed" tabindex="-1">
+                            <paper-button style="background-color: #390031; color: #FF00FF; border: 1px #FF00FF solid">Ver detalles</paper-button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div frontend class="col s12 l6">
+                <div class="program-container">
+                    <div>
+                        <div class="program-background">
+                                <img src="../../assets/frontend-01.png" alt="">
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: #261300">Front End Avanzado</h3>
+                        <p>Crea aplicaciones Web impresionantes del lado
+                            del cliente listas para salir a producción con las 
+                            tecnologías más modernas </p>
+                        <a href="hackter-fadvanzed" tabindex="-1">
+                            <paper-button style="background-color: #261300; color: #FF8000; border: 1px #FF8000 solid">Ver detalles</paper-button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container divider"></div>
+
+        <div beginner class="row container program-container">
+            <div class="col s12 m6 l3">
+                <div class="program-background">
+                    <img src="../../assets/android-01.png" alt="beginner">
+                </div>
+            </div>
+            <div class="col s12 m6 l9">
+                <h3 style="color: #003000">Android</h3>
+                <p>Aprende a construir aplicaciones para Android aunque no tengas conocimientos previos 
+                    de programación, conviértete en un desarrollador de aplicaciones móviles que empleen 
+                    tecnologías como: Mapas de Google, Material Design, Firebase y Consumo de API's para 
+                    tener los datos de tu aplicación siempre disponibles.</p>
+                <a href="hackter-android" tabindex="-1">
+                    <paper-button style="background-color: #003000; color: #00FF00; border: 1px #00FF00 solid">Ver detalles</paper-button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div product-background>
+        <div class="container row">
+            <div class="col s12 m8 l6">
+                <h2 class="top-space">No todo es código</h2>
+                <p>En Hackter, no solamente escribirás código, aprenderás a resolver problemas
+                    y a crear productos de acuerdo a las necesidades de personas o instituciones
+                    reales con técnicas empleadas en compañías como <a style="color: dodgerblue" href="http://www.gv.com/sprint/">Google</a></p>  
+            </div>
+        </div>  
+    </div>
+
+    <div schedule-background>
+        <div class="container">
+            <h2 class="top-space">Sácale el máximo provecho a tu tiempo</h2>
+            <p>Nuestros cursos son presenciales y se imparten en <b>horarios</b> que se pueden
+                acoplar con tus actividades, conócelos:
+            </p>
+            <paper-tabs attr-for-selected="name" selected="{{gdl}}" no-slide align-bottom>
+                <paper-tab name="gdl">Guadalajara</paper-tab>
+                <paper-tab name="leo">León</paper-tab>
+            </paper-tabs>
+            <iron-pages attr-for-selected="name" selected="{{gdl}}" fallback-selection="gdl">
+                <gdl-schedule name="gdl" thereweek theresat rundateweek="17 de febrero" rundatesat="19 de febrero"></gdl-schedule>
+                <leo-schedule name="leo"></leo-schedule>
+            </iron-pages>
+        </div>
+    </div>
+
+    <div prize-sec>
+        <div class="container row">
+            <div class="col s12">
+                <h2 class="top-space">Invierte en desarrollar tus habilidades</h2>
+                <p>Invertir en estas habilidades es comprar una <i>caña de pescar</i>, nuestros egresados 
+                    están consiguiendo ofertas laborales o proyectos con los que han <b>triplicado</b> su inversión en no más 
+                    de dos meses después de estar con nosotros <i>y lo que les espera por conseguir</i>. 
+                    Toma en cuenta que para <b>apartar</b> tu lugar solo tienes que pagar <span class="blue-text">$500</span> y el monto
+                    restante puedes <b>completarlo</b> a lo largo del tiempo que estés en el curso.<br> <br>
+                    Ingresa al apartado del programa que te interesa par conocer los <b>precios</b> y las opciones 
+                    de <b>ayuda financiera</b> que tenemos.</p> <br>
+            </div>
+            
+            <!--div class="col s12 m6 l4">
+                <paper-tabs attr-for-selected="name" selected="{{gdlprize}}" align-bottom id="prize-table-tabs">
+                    <paper-tab name="gdlprize">Guadalajara</paper-tab>
+                    <paper-tab name="leoprize">León</paper-tab>
+                </paper-tabs>
+                <iron-pages attr-for-selected="name" selected="{{gdlprize}}" fallback-selection="gdlprize">
+                    <gdl-prize name="gdlprize"></gdl-prize>
+                    <leo-prize name="leoprize"></leo-prize>
+                </iron-pages>
+            </div>
+
+            <div class="col s12 m6 l8" class="help-money">
+                <h3 style="margin-top: 0">¿Necesitas una ayuda financiera?</h3>
+                <p>En Hackter queremos que nadie pierda la oportunidad de aprender con nosotros, si eres
+                    una persona con muchas ganas de sobresalir, aplica para una beca y consigue descuentos
+                    hasta del <span class="blue-text">50%</span>, o bien, invita a más personas y por cada inscripción que
+                    ocasiones, consigue un <span class="blue-text">10%</span> de descuento.
+                </p>
+                    
+                <a href="hackter-becas" tabindex="-1">
+                    <paper-button>Aplica para una beca</paper-button>
+                </a>
+            </div-->
+        </div>
+    </div>
+
+    <div enterprise-background>
+        <div class="container">
+            <h2 class="top-space">Paquetes para empresas</h2>
+            <p>Si necesitas capacitación para pesonal de tu empresa, contáctanos para obtener códigos de 
+                descuento, o bien, si ya formas parte de una empresa aliada de Hackter, introduce tu código de descuento
+            </p>
+            <a href="hackter-contact" tabindex="-1">
+               <paper-button>Quiero capacitación</paper-button>
+            </a>
+            <a href="hackter-inscription" tabindex="-1">
+                <paper-button>Tengo un código</paper-button>
+            </a>
+    
+            <div id="help-section-notes">
+                <p>*Las becas no son acumulables con los códigos de empresas aliadas.</p>
+                <p>*Si tienes beca o código de descuento, puedes acumularlo con tus descuentos por referidos</p>
+                <p>*Ponte en contacto con el departamento de ventas si tienes un referido para hacer válido tu 
+                    descuento y el de tu referido. 
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div location-backgorund>
+        <div class="container">
+            <h2 class="top-space">Estamos cerca de ti</h2>
+            <p>Queremos que tomes nuestros cursos en lugares que favorezcan tu creatividad 
+                 y que a la vez estén cerca de ti, conócelos:
+            </p>
+            <paper-tabs attr-for-selected="name" selected="{{gdlloc}}" align-bottom>
+                    <paper-tab name="gdlloc">Guadalajara</paper-tab>
+                    <paper-tab name="leoloc">León</paper-tab>
+                </paper-tabs>
+                <iron-pages attr-for-selected="name" selected="{{gdlloc}}" fallback-selection="gdlloc">
+                    <gdl-location name="gdlloc"></gdl-location>
+                    <leo-location name="leoloc"></leo-location>
+                </iron-pages>
+        </div>
+    </div>
+
+    <div inscription-background>
+        <div class="container">
+            <h2 class="top-space">Inscríbete a Hackter</h2>
+            <p>Los egresados de nuestras cuatro generaciones son la prueba de la revolución que está
+                causando Hackter en el Oriente de Guadalajara, ¿Qué esperas para inscribirte y empezar
+                a crear cosas impresionantes?
+            </p>
+            <a href="hackter-inscription" tabindex="-1">
+                <paper-button>Inscripción Guadalajara</paper-button>
+            </a>
+            <a href="hackter-inscription" tabindex="-1">
+                <paper-button>Inscripción León</paper-button>
+            </a>
+        </div>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class HackterHome extends Polymer.Element {
+      static get is() { return 'hackter-home'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-home'
+          }
+        };
+      }
+
+      _setinner(event){
+        this.newv= event.currentTarget.innerHTML;
+      }
+    }
+
+    window.customElements.define(HackterHome.is, HackterHome);
+  </script>
+</dom-module>

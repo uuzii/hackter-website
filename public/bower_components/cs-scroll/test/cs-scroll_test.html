@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>cs-scroll test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../cs-scroll.html">
+  </head>
+  <body>
+
+    <test-fixture id="BasicTestFixture">
+      <template>
+        <cs-scroll></cs-scroll>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="ChangedPropertyTestFixture">
+      <template>
+        <cs-scroll target="testme"></cs-scroll>
+        <div id="testme"></div>
+      </template>
+    </test-fixture>
+    
+    <script>
+   
+      suite('cs-scroll', function() {
+
+        test('instantiating the element with no properties works', function() {
+          var element = fixture('BasicTestFixture');
+          assert.equal(element.localName, 'cs-scroll');
+          assert.equal(element._status, 'unused');
+        });
+
+        test('setting a property on the element works', function() {
+          let elements = fixture('ChangedPropertyTestFixture');
+          assert.equal(elements[0].target,elements[1].id);
+        });
+        
+        test('setting target triggers observer and sets correct status if id exists', function() {
+          let elements = fixture('ChangedPropertyTestFixture');
+          assert.equal(elements[0]._status,'found_target');
+        });
+
+        test('setting target triggers observer and sets correct status if id exists not', function() {
+          let elements = fixture('ChangedPropertyTestFixture');
+          elements[0].target='xxx';
+          assert.equal(elements[0]._status,'wrong_target');
+        });
+      });
+    </script>
+  </body>
+</html>

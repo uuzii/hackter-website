@@ -1,0 +1,213 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+
+<dom-module id="hackter-consultancy">
+  <template>
+    <style include="shared-styles">
+      .container {
+        padding: 3em 0;
+      }
+      
+      div[consultancy-background] {
+        background-color: white;
+      }
+    </style>
+
+    <firebase-query
+      id="query"
+      path="/consultoria"
+      data="{{consultores}}"></firebase-query>
+
+    <div consultancy-background>
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m4 l6">
+            <h1>Consultoría</h1>
+              <p>En Hackter, también desarrollamos software para tu empresa o negocio.
+                  Si quieres hacer una cotización, cúentanos brevemente lo que necesitas
+                  y con gusto te atenderemos.
+              </p>
+          </div>
+        </div>
+
+        <form is="iron-form" id="consultancyf">
+          <div class="row">
+            <div class="col s12 m4 l3">
+                <paper-input id="coname" label="Nombre" required></paper-input>
+            </div>
+            <div class="col s12 m4 l3">
+                <paper-input id="colastname" label="Apellido" required></paper-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m4 l3">
+              <paper-input id="coemail" label="Email" type="email" required ></paper-input>
+            </div>
+            <div class="col s12 m4 l3">
+              <paper-input id="cotel" label="Teléfono" required allowed-pattern="[+,0-9]"></paper-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m8 l6">
+              <paper-input id="coemp" label="Nombre de la Empresa/Negocio"></paper-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m8 l6">
+                <paper-input id="coplace" label="¿Desde dónde nos contactas?" required></paper-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m8 l6">
+                <paper-textarea id="comessage" label"Escribe brevemente sobre el software que necesitas" placeholder="Escribe brevemente sobre el software que necesitas" required></paper-textarea>
+            </div>
+          </div>
+            
+          <paper-button raised on-tap="delaySubmit">Enviar</paper-button>
+          <paper-spinner id="cospinner" hidden></paper-spinner>
+        </form>
+        
+          <paper-dialog id="required">
+            <h2 class="dialog-header">Campos faltantes</h2>
+            <paper-dialog-scrollable>
+              Parece que te faltó llenar algún campo, verifica tus datos para poder enviar tu mensaje
+            </paper-dialog-scrollable>
+            <div class="buttons">
+              <paper-button class="dialog-button" dialog-dismiss>OK</paper-button>
+            </div>
+          </paper-dialog>
+  
+          <paper-dialog id="success">
+            <h2 class="dialog-header">Gracias</h2>
+            <paper-dialog-scrollable>
+              Hemos recibido tu mensaje, pronto nos pondremos en contacto contigo
+            </paper-dialog-scrollable>
+            <div class="buttons">
+              <a href="hackter-home">
+                <paper-button class="dialog-button">OK</paper-button>
+              </a>
+            </div>
+          </paper-dialog>
+
+        
+      </div>
+      
+    </div>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class HackterConsultancy extends Polymer.Element {
+      static get is() { return 'hackter-consultancy'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          },
+          firebase: {
+            type: String
+          },
+
+          ref: {
+            computed: 'setFirebase(firebase)'
+          },
+
+          codate: {
+            computed: 'getCurrentDate()'
+          },
+
+          cotime: {
+            computed: 'getCurrentTime()'
+          }
+        };
+      }
+
+      setFirebase(firebase) {
+        return new Firebase(firebase)
+      }
+
+      validate(value, re) {
+        if(re === undefined) {
+          return value !== undefined && value !== '';
+        }
+        return re.test(value);
+      }
+
+      getCurrentDate() {
+        var currentdate = new Date();
+        return currentdate.getDate() + "/" + (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear();
+      }
+
+      getCurrentTime() {
+        var currentdate = new Date();
+        return currentdate.getHours() + ":"  + currentdate.getMinutes();
+      }
+
+      delaySubmit() {
+        var local = this;
+        this.$.cospinner.active = true;
+        this.$.cospinner.hidden = false;
+        this.$.consultancyf.disabled = false;
+
+        setTimeout(function() {
+          local.send();
+        }, 2000)
+      }
+
+      send(event) {
+        var date = this.codate;
+        var time = this.cotime;
+        var name = this.$.coname;
+        var lastname = this.$.colastname;
+        var email = this.$.coemail;
+        var tel = this.$.cotel;
+        var emp = this.$.coemp;
+        var place = this.$.coplace;
+        var message = this.$.comessage;
+
+        if(!this.validate(name.value) || !this.validate(email.value) || !this.validate(message.value)) {
+          this.$.required.open();
+          this.$.cspinner.active = false;
+          this.$.cspinner.hidden = true;
+          return;
+        }
+
+        if(!email.validate()) {
+          return;
+        }
+
+        this.$.query.ref.push({
+          name: name.value,
+          lastname: lastname.value,
+          email: email.value,
+          tel: tel.value,
+          emp: emp.value,
+          place: place.value,
+          message: message.value,
+          date: date,
+          time: time
+        });
+
+        this.$.success.open();
+
+        name.value = null;
+        lastname.value = null;
+        email.value = null;
+        tel.value = null;
+        emp.value = null;
+        place.value = null;
+        message.value = null;
+        date = null;
+        time = null;
+        this.$.cspinner.active = false;
+        this.$.cspinner.hidden = true;
+      }
+    }
+
+    window.customElements.define(HackterConsultancy.is, HackterConsultancy);
+  </script>
+</dom-module>

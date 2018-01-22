@@ -1,0 +1,49 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="gdl-location">
+  <template>
+    <style include="shared-styles">
+        google-map {
+            height: 300px;
+        }
+
+        #address-div-mobile {
+          background-color: var(--app-primary-color);
+          color: #DDECF7;
+          padding: 10px;
+          font-weight: bolder;
+          text-align: center;
+        }
+
+    </style>
+    <google-map latitude="20.671532" longitude="-103.36882700000001" 
+      fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc" zoom="16"
+      styles='[{"featureType": "all","stylers": [{"saturation": 0},{"hue": "#e7ecf0" }]},{"featureType": "road","stylers": [ {"saturation": -70}] },{"featureType": "transit", "stylers": [{"visibility": "off"}]},{"featureType": "poi","stylers": [ {"visibility": "off"}]},{"featureType": "water","stylers": [{"visibility": "simplified"},{"saturation": -60}]}]'
+      disable-map-type-control disable-street-view-control disable-zoom>
+        <google-map-marker latitude="20.671532" longitude="-103.36882700000001"></google-map-marker>
+    </google-map>
+    <div id="address-div-mobile">
+        <p style="margin: 0">Chapultepec Sur 284 Int. 103 <br>Americana <br>Guadalajara, Jal.</p>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class GdlLocation extends Polymer.Element {
+      static get is() { return 'gdl-location'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(GdlLocation.is, GdlLocation);
+  </script>
+</dom-module>

@@ -1,0 +1,242 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+
+<dom-module id="hackter-becas">
+  <template>
+    <style include="shared-styles">
+      .container {
+        padding: 3em 0;
+      }
+      
+      div[scolarship-background] {
+        background-color: white;
+      }
+    </style>
+
+    <firebase-query
+      id="query"
+      path="/becas"
+      data="{{becarios}}"></firebase-query>
+
+    <div scolarship-background>
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m8 l6">
+            <h1>Becas</h1>
+            <p>Si necesitas ayuda financiera para tomar un curso con nosotros, aplica para una beca y obtén
+                hasta el 50% de descuento llenando el siguiente formulario y en breve nos pondremos 
+                en contacto contigo para notificarte si obtendrás el apoyo. ¡No dudes en aplicar! Las becas están limitadas.
+            </p>
+          </div>
+        </div>
+
+        <form is="iron-form" id="scolarshipf">
+          <div class="row">
+            <div class="col s12 m4 l3">
+              <paper-input id="sname" label="Nombre" required></paper-input>
+            </div>
+            <div class="col s12 m4 l3">
+                <paper-input id="slastname" label="Apellido" required></paper-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m4 l3">
+                <paper-input id="semail" label="Email" type="email" required ></paper-input>
+            </div>
+            <div class="col s12 m4 l3">
+                <paper-input id="stel" label="Teléfono" required allowed-pattern="[+,0-9]"></paper-input>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m8 l6">
+              <paper-dropdown-menu id="sprogram" label="Programa que te interesa" required>
+                <paper-listbox slot="dropdown-content" selected="0">
+                  <paper-item>Principiante</paper-item>
+                  <paper-item>Intermedio</paper-item>
+                  <paper-item>Back End Avanzado</paper-item>
+                  <paper-item>Front End Avanzado</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m8 l6">
+              <p>Recuerda que nuestros cursos son presenciales, ¿para qué sede aplicas?</p>
+              <paper-dropdown-menu id="splace" label="Sede" required>
+                <paper-listbox slot="dropdown-content" selected="0">
+                  <paper-item>Guadalajara</paper-item>
+                  <paper-item>León</paper-item>
+                </paper-listbox>
+              </paper-dropdown-menu>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m8 l6">
+              <paper-textarea id="sreason" placeholder="¿Por qué quieres ingresar a Hackter?" required></paper-textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m8 l6">
+              <paper-textarea id="sgoals" placeholder="¿Cuáles consideras que han sido tus mayores logros?" required></paper-textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m8 l6">
+              <paper-textarea id="sapply" placeholder="¿En qué quieres aplicar los conocimientos que adquieras con nosotros?" required></paper-textarea>    
+            </div>
+          </div>
+
+          <paper-button raised on-tap="delaySubmit">Enviar</paper-button>
+          <paper-spinner id="sspinner" hidden></paper-spinner>
+        </form>
+          
+          <paper-dialog id="required">
+            <h2 class="dialog-header">Campos faltantes</h2>
+            <paper-dialog-scrollable>
+              Parece que te faltó llenar algún campo, verifica tus datos para poder finalizar tu aplicación
+            </paper-dialog-scrollable>
+            <div class="buttons">
+              <paper-button class="dialog-button" dialog-dismiss>OK</paper-button>
+            </div>
+          </paper-dialog>
+    
+          <paper-dialog id="success">
+            <h2 class="dialog-header">Listo</h2>
+            <paper-dialog-scrollable>
+              Hemos recibido tus datos, pronto nos pondremos en contacto contigo
+            </paper-dialog-scrollable>
+            <div class="buttons">
+              <a href="hackter-home">
+                <paper-button class="dialog-button">OK</paper-button>
+              </a>
+            </div>
+          </paper-dialog>
+      </div>
+      
+     
+    </div>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class HackterBecas extends Polymer.Element {
+      static get is() { return 'hackter-becas'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          },
+
+          firebase: {
+            type: String
+          },
+
+          ref: {
+            computed: 'setFirebase(firebase)'
+          },
+
+          sdate: {
+            computed: 'getCurrentDate()'
+          },
+
+          stime: {
+            computed: 'getCurrentTime()'
+          }
+        };
+      }
+
+      setFirebase(firebase) {
+        return new Firebase(firebase)
+      }
+
+      validate(value, re) {
+        if(re === undefined) {
+          return value !== undefined && value !== '';
+        }
+        return re.test(value);
+      }
+
+      getCurrentDate() {
+        var currentdate = new Date();
+        return currentdate.getDate() + "/" + (currentdate.getMonth()+1)  + "/" + currentdate.getFullYear();
+      }
+
+      getCurrentTime() {
+        var currentdate = new Date();
+        return currentdate.getHours() + ":"  + currentdate.getMinutes();
+      }
+
+      delaySubmit() {
+        var local = this;
+        this.$.sspinner.active = true;
+        this.$.sspinner.hidden = false;
+        this.$.scolarshipf.disabled = false;
+
+        setTimeout(function() {
+          local.send();
+        }, 2000)
+      }
+
+      send(event) {
+        var date = this.sdate;
+        var time = this.stime;
+        var name = this.$.sname;
+        var lastname = this.$.slastname;
+        var email = this.$.semail;
+        var tel = this.$.stel;
+        var program = this.$.sprogram;
+        var place = this.$.splace;
+        var reason = this.$.sreason;
+        var goals = this.$.sgoals;
+        var apply = this.$.sapply;
+
+        if(!this.validate(name.value) || !this.validate(email.value) || !this.validate(reason.value)) {
+          this.$.required.open();
+          this.$.cspinner.active = false;
+          this.$.cspinner.hidden = true;
+          return;
+        }
+
+        if(!email.validate()) {
+          return;
+        }
+
+        this.$.query.ref.push({
+          name: name.value,
+          lastname: lastname.value,
+          email: email.value,
+          tel: tel.value,
+          program: program.value,
+          place: place.value,
+          reason: reason.value,
+          goals: goals.value,
+          apply: apply.value,
+          date: date,
+          time: time
+        });
+
+        this.$.success.open();
+
+        name.value = null;
+        lastname.value = null;
+        email.value = null;
+        tel.value = null;
+        program.value = null;
+        place.value = null;
+        reason.value = null;
+        goals.value = null;
+        apply.value = null;
+        date = null;
+        time = null;
+        this.$.cspinner.active = false;
+        this.$.cspinner.hidden = true;
+      }
+    }
+
+    window.customElements.define(HackterBecas.is, HackterBecas);
+  </script>
+</dom-module>

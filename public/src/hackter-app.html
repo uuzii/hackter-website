@@ -1,0 +1,395 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/google-map/google-map.html">
+<link rel="import" href="../bower_components/google-map/google-map-marker.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../bower_components/iron-validator-behavior/iron-validator-behavior.html">
+
+<link rel="lazy-import" href="hackter-android.html">
+<link rel="lazy-import" href="hackter-badvanzed.html">
+<link rel="lazy-import" href="hackter-beginner.html">
+<link rel="lazy-import" href="hackter-blog.html">
+<link rel="lazy-import" href="hackter-consultancy.html">
+<link rel="lazy-import" href="hackter-consultancy.html">
+<link rel="lazy-import" href="hackter-contact.html">
+<link rel="lazy-import" href="hackter-fadvanzed.html">
+<link rel="lazy-import" href="hackter-home.html">
+<link rel="lazy-import" href="hackter-inscription.html">
+<link rel="lazy-import" href="hackter-intermediate.html">
+<link rel="lazy-import" href="hackter-login.html">
+<link rel="lazy-import" href="hackter-becas.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="hackter-app">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        font-family: 'Mukta', sans-serif;
+
+        --app-primary-color: #000033;
+        --app-secondary-color: white;
+
+        display: block;
+      }
+
+      app-header {
+        background-color: var(--app-primary-color);
+        height: 44px;
+        color: #fff;
+      }
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+      app-drawer-layout:not([narrow]) [drawer-toggle] {
+        display: none;
+      }
+
+      #menu-main-button {
+        display: none;
+      }
+
+      #logo-main-btn {
+        height: 20px;
+        margin-bottom: 12px;
+      }
+
+      .navbar-ul {
+        margin-top: 0;
+        margin-left: calc(100vw - 600px);
+        padding: 0;
+      }
+
+      ul.navbar-ul > li {
+        display: inline-block;
+        list-style-type: none;
+        font-size: 15px;
+        margin: 0 12px;
+      }
+
+      @media screen and (max-width: 600px) {
+        #menu-main-button {
+          display: inline-block;
+          margin-bottom: 20px;
+          margin-right: 10px;
+        }
+
+        ul.navbar-ul {
+          display: none;
+        }
+      }
+
+      footer {
+        background-color: var(--app-primary-color);
+        text-align: center;
+        padding-top: 2em;
+        color: #4C5E6D;
+      }
+
+      img[logo-footer] {
+        width: 100px;
+        margin: 2em 0 0.5em 0;
+      }
+
+      ul.footer-links {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      ul.footer-links > li {
+        display: inline-block;
+        margin: 2em 40px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      ul.footer-links > li > a {
+        color: #D2E4F3;
+      }
+
+      h5 {
+        font-size: 18px;
+        margin-top: 1.8em;
+        margin-bottom: 0;
+        color: #D2E4F3;
+      }
+
+      @media screen and (max-width: 600px) {
+        #add-container {
+          border-right: 1px #000033 solid;
+        }
+
+        ul.footer-links {
+          margin: 1em 0;
+        }
+
+        ul.footer-links > li {
+          margin: 0 5px;
+          font-size: 15px;
+          font-weight: bold;
+        }
+      } 
+
+    .contact-links {
+      font-style: normal;
+      font-weight: normal;
+      color: #9BB9D3;
+      text-decoration: underline;
+    }
+
+     #add-container {
+        border-right: 1px #1c1c30 solid;
+      }
+
+      div[social-sec] > a > img {
+        width: 30px;
+        margin: 1em 1.7em;
+      }
+
+      div[copy-sec] > p {
+        margin: 0;
+        padding: 0.2em 0 1.2em 0;
+        font-size: 13px;
+      }
+
+      .drawer-list {
+        margin: 0 20px;
+      }
+
+      .drawer-list a {
+        display: block;
+        padding: 0 16px;
+        text-decoration: none;
+        color: var(--app-primary-color);
+        line-height: 40px;
+      }
+
+      .drawer-list a.iron-selected {
+        color: black;
+        font-weight: bold;
+      }
+      
+    </style>
+
+    <app-location route="{{route}}" url-space-regex="^[[rootPattern]]"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="[[rootPattern]]:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+
+    <firebase-app
+      auth-domain="hackter-w2.firebaseapp.com"
+      database-url="https://hackter-w2.firebaseio.com/"
+      api-key="AIzaSyD6JkRXs3YhlNIq-Zvjc3P-MuA60rX54gE"
+      storage-bucket="hackter-w2.appspot.com"
+      messaging-sender-id="544817973908">
+    </firebase-app>
+
+    <app-drawer-layout force-narrow>
+
+      <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
+        <app-toolbar>Menu</app-toolbar>
+        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+            <a href="hackter-home">Inicio</a>
+            <a href="hackter-blog">Blog</a>
+            <a href="hackter-contact">Contacto</a>
+            <a href="hackter-consultancy">Consultoría</a>
+            <a href="hackter-inscription">Inscríbete</a>
+        </iron-selector>
+      </app-drawer>
+
+      <app-header-layout>
+
+        <app-header slot="header" fixed effects="waterfall">
+          <app-toolbar>
+            <paper-icon-button id="menu-main-button" icon="menu" drawer-toggle></paper-icon-button>
+            <a href="hackter-home">
+              <img id="logo-main-btn" src="../../assets/logo-iso.png" alt="">
+            </a>
+            <ul class="navbar-ul">
+              <li><a class="white-links" href="hackter-blog">Blog</a></li>
+              <li><a class="white-links" href="hackter-contact">Contacto</a></li>
+              <li><a class="white-links" href="hackter-consultancy">Consultoría</a></li>
+              <li><a class="white-links" href="hackter-inscription">Inscripciones</a></li>
+              <li><a class="white-links" href="hackter-becas">Becas</a></li>
+            </ul>
+          </app-toolbar>
+        </app-header>
+
+
+        <iron-pages
+            selected="[[page]]"
+            attr-for-selected="name"
+            selected-attribute="visible"
+            fallback-selection="view404"
+            role="main">
+          <hackter-home name="hackter-home"></hackter-home>
+          <hackter-blog name="hackter-blog"></hackter-blog>
+          <hackter-contact name="hackter-contact"></hackter-contact>
+          <hackter-consultancy name="hackter-consultancy"></hackter-consultancy>
+          <hackter-inscription name="hackter-inscription"></hackter-inscription>
+          <hackter-becas name="hackter-becas"></hackter-becas>
+          <hackter-login name="hackter-login"></hackter-login>
+          <hackter-beginner name="hackter-beginner"></hackter-beginner>
+          <hackter-intermediate name="hackter-intermediate"></hackter-intermediate>
+          <hackter-fadvanzed name="hackter-fadvanzed"></hackter-fadvanzed>
+          <hackter-badvanzed name="hackter-badvanzed"></hackter-badvanzed>
+          <hackter-android name="hackter-android"></hackter-android>
+          <hackter-not-found name="hackter-not-found"></hackter-not-found>
+        </iron-pages>
+
+        
+
+        <footer>
+          <div class="container row">
+            <div class="col s12">
+                <img logo-footer src="../../assets/complete-logo-white.png" alt="">
+            </div>
+            <div class="col s12 offset-l3 l3" id="add-container">
+                <h5>Guadalajara</h5>
+                <address>Chapultepec Sur 284 Int. 103<br>
+                  44160 Guadalajara, Jal. <br>
+                  <a class="contact-links"  href="mailto:contactogdl@hackter.mx">contactogdl@hackter.mx</a> <br>
+                  <a class="contact-links"  href="tel:5512002105">5512002105</a>
+                </address>
+            </div>
+
+            <div class="col s12 l3">
+                <h5>León</h5>
+                <address>San Francisco 104-B, La Martinica <br>
+                  37500 León, Gto. <br>
+                  <a class="contact-links" href="mailto:contactoleon@hackter.mx">contactoleon@hackter.mx</a> <br>
+                  <a class="contact-links"  href="tel:4773816944">4773816944</a>
+                </address>
+            </div>
+          </div>
+
+          <div another-sec class="container">
+            <ul class="footer-links">
+              <li><a href="hackter-contact">Contacto</a></li>
+              <li><a href="hackter-blog">Blog</a></li>
+              <li><a href="hackter-consultancy">Consultoría</a></li>
+              <li><a href="hackter-becas">Becas</a></li>
+            </ul>
+          </div>
+
+          <div social-sec class="container">
+            <a href="https://www.facebook.com/HackterR/"><img src="../../assets/icons/facebook-blue-01.png" alt=""></a>
+            <a href="https://twitter.com/hack_ter"><img src="../../assets/icons/twitter-blue-01.png" alt=""></a>
+            <a href="https://www.instagram.com/hack.ter/"><img src="../../assets/icons/instagram-blue-01.png" alt=""></a>
+          </div>
+          <div copy-sec class="container">
+            <p>Copyright &copy; 2017 Hackter - Todos los derechos reservados</p>
+          </div>
+        </footer>
+
+      </app-header-layout>
+
+    </app-drawer-layout>
+
+    
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class HackterApp extends Polymer.Element {
+      static get is() { return 'hackter-app'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hackter-app'
+          },
+
+          page: {
+            type: String,
+            reflectToAttribute: true,
+            observer: '_pageChanged',
+          },
+          rootPattern: String,
+          routeData: Object,
+          subroute: String,
+        };
+      }
+
+      static get observers() {
+        return [
+          '_routePageChanged(routeData.page)',
+        ];
+      }
+
+      constructor() {
+        super();
+
+        // Get root pattern for app-route, for more info about `rootPath` see:
+        // https://www.polymer-project.org/2.0/docs/upgrade#urls-in-templates
+        this.rootPattern = (new URL(this.rootPath)).pathname;
+      }
+
+      _routePageChanged(page) {
+        // Polymer 2.0 will call with `undefined` on initialization.
+        // Ignore until we are properly called with a string.
+        if (page === undefined) {
+          return;
+        }
+
+        // If no page was found in the route data, page will be an empty string.
+        // Deault to 'view1' in that case.
+        this.page = page || 'hackter-home';
+
+        // Close a non-persistent drawer when the page & route are changed.
+        if (!this.$.drawer.persistent) {
+          this.$.drawer.close();
+        }
+      }
+
+      _pageChanged(page) {
+        // Load page import on demand. Show 404 page if fails
+        var resolvedPageUrl = this.resolveUrl(page + '.html');
+        Polymer.importHref(
+            resolvedPageUrl,
+            null,
+            this._showPage404.bind(this),
+            true);
+      }
+
+      _showPage404() {
+        this.page = 'hackter-not-found';
+      }
+    }
+
+    window.customElements.define(HackterApp.is, HackterApp);
+  </script>
+</dom-module>
